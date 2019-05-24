@@ -1,0 +1,5 @@
+org.chat:
+  events:
+    store.mongo.uri: mongodb://localhost:27017/chat_event_store_db
+  projections:
+    store.mongo.uri: mongodb://localhost:27017/chat_projections_db
