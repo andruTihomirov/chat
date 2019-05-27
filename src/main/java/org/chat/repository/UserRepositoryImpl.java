@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * @author atsikhamirau on 24.05.2019
@@ -12,9 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserRepositoryImpl implements UserRepository {
 
-    @Autowired
-    @Qualifier("projectionMongoTemplate")
     private MongoOperations mongoOperations;
+
+    @Autowired
+    public UserRepositoryImpl(@Qualifier("projectionMongoTemplate") MongoOperations mongoOperations) {
+        Assert.notNull(mongoOperations, "MongoOperations was not autowired.");
+        this.mongoOperations = mongoOperations;
+    }
 
     @Override
     public User getById(String id) {

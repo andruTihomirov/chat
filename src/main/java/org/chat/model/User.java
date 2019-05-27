@@ -9,7 +9,9 @@ import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.chat.model.commands.UserCreateCommand;
+import org.chat.model.commands.UserUpdateCommand;
 import org.chat.model.events.UserCreateEvent;
+import org.chat.model.events.UserUpdateEvent;
 
 /**
  * @author atsikhamirau on 23.05.2019
@@ -35,24 +37,46 @@ public class User {
     }
 
     @CommandHandler
-    public User(UserCreateCommand command) {
+    public User(UserCreateCommand userCreateCommand) {
         UserCreateEvent event = new UserCreateEvent()
-                .setId(command.getId())
-                .setFirstName(command.getFirstName())
-                .setLastName(command.getLastName())
-                .setEmail(command.getEmail())
-                .setPassword(command.getPassword());
+                .setId(userCreateCommand.getId())
+                .setFirstName(userCreateCommand.getFirstName())
+                .setLastName(userCreateCommand.getLastName())
+                .setEmail(userCreateCommand.getEmail())
+                .setPassword(userCreateCommand.getPassword());
+
+        AggregateLifecycle.apply(event);
+    }
+
+    @CommandHandler
+    public void handle(UserUpdateCommand userUpdateCommand) {
+        UserUpdateEvent event = new UserUpdateEvent()
+                .setId(userUpdateCommand.getId())
+                .setFirstName(userUpdateCommand.getFirstName())
+                .setLastName(userUpdateCommand.getLastName())
+                .setEmail(userUpdateCommand.getEmail())
+                .setPassword(userUpdateCommand.getPassword());
 
         AggregateLifecycle.apply(event);
     }
 
     @EventSourcingHandler
-    public void on(UserCreateEvent event) {
-        this.id = event.getId();
-        this.firstName = event.getFirstName();
-        this.lastName = event.getLastName();
-        this.email = event.getEmail();
-        this.password = event.getPassword();
+    public void on(UserCreateEvent userCreateEvent) {
+        this.id = userCreateEvent.getId();
+        this.firstName = userCreateEvent.getFirstName();
+        this.lastName = userCreateEvent.getLastName();
+        this.email = userCreateEvent.getEmail();
+        this.password = userCreateEvent.getPassword();
     }
+
+    @EventSourcingHandler
+    public void on(UserUpdateEvent userUpdateEvent) {
+        this.id = userUpdateEvent.getId();
+        this.firstName = userUpdateEvent.getFirstName();
+        this.lastName = userUpdateEvent.getLastName();
+        this.email = userUpdateEvent.getEmail();
+        this.password = userUpdateEvent.getPassword();
+    }
+
 
 }

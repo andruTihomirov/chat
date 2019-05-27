@@ -4,10 +4,12 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.chat.model.User;
 import org.chat.model.events.UserCreateEvent;
+import org.chat.model.events.UserUpdateEvent;
 import org.chat.model.queries.UserGeByIdQuery;
 import org.chat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * @author atsikhamirau on 24.05.2019
@@ -15,17 +17,33 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserProjection {
 
-    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    public UserProjection(UserRepository userRepository) {
+        Assert.notNull(userRepository, "UserRepository was not autowired.");
+        this.userRepository = userRepository;
+    }
+
     @EventHandler
-    public void on(UserCreateEvent event) {
+    public void on(UserCreateEvent userCreateEvent) {
         User user = new User()
-                .setId(event.getId())
-                .setFirstName(event.getFirstName())
-                .setLastName(event.getLastName())
-                .setEmail(event.getEmail())
-                .setPassword(event.getPassword());
+                .setId(userCreateEvent.getId())
+                .setFirstName(userCreateEvent.getFirstName())
+                .setLastName(userCreateEvent.getLastName())
+                .setEmail(userCreateEvent.getEmail())
+                .setPassword(userCreateEvent.getPassword());
+        userRepository.save(user);
+    }
+
+    @EventHandler
+    public void on(UserUpdateEvent userUpdateEvent) {
+        User user = new User()
+                .setId(userUpdateEvent.getId())
+                .setFirstName(userUpdateEvent.getFirstName())
+                .setLastName(userUpdateEvent.getLastName())
+                .setEmail(userUpdateEvent.getEmail())
+                .setPassword(userUpdateEvent.getPassword());
         userRepository.save(user);
     }
 
