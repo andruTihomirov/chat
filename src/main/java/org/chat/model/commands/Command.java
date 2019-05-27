@@ -2,7 +2,6 @@ package org.chat.model.commands;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
 /**
@@ -10,18 +9,8 @@ import org.axonframework.commandhandling.TargetAggregateIdentifier;
  */
 @Getter
 @Setter
-@Accessors(chain = true)
-public class UserUpdateCommand {
+public abstract class Command {
 
     @TargetAggregateIdentifier
     private String id;
-
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    private String password;
-
 }

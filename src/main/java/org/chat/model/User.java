@@ -8,8 +8,8 @@ import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.chat.model.commands.UserCreateCommand;
-import org.chat.model.commands.UserUpdateCommand;
+import org.chat.model.commands.user.UserCreateCommand;
+import org.chat.model.commands.user.UserUpdateCommand;
 import org.chat.model.events.user.UserCreateEvent;
 import org.chat.model.events.user.UserUpdateEvent;
 

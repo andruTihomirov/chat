@@ -2,8 +2,8 @@ package org.chat.controllers.commands;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
-import org.chat.model.commands.UserCreateCommand;
-import org.chat.model.commands.UserUpdateCommand;
+import org.chat.model.commands.user.UserCreateCommand;
+import org.chat.model.commands.user.UserUpdateCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
