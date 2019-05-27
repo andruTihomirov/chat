@@ -10,4 +10,6 @@ public interface UserRepository extends Repository<User, String> {
 
     User save(User user);
 
+    User getById(String id);
+
 }

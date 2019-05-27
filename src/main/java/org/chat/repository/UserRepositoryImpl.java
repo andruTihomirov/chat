@@ -17,6 +17,11 @@ public class UserRepositoryImpl implements UserRepository {
     private MongoOperations mongoOperations;
 
     @Override
+    public User getById(String id) {
+        return mongoOperations.findById(id, User.class);
+    }
+
+    @Override
     public User save(User user) {
         return this.mongoOperations.save(user);
     }

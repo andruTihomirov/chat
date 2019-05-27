@@ -1,8 +1,10 @@
 package org.chat.model.projections;
 
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.queryhandling.QueryHandler;
 import org.chat.model.User;
 import org.chat.model.events.UserCreateEvent;
+import org.chat.model.queries.UserGeByIdQuery;
 import org.chat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,11 @@ public class UserProjection {
                 .setEmail(event.getEmail())
                 .setPassword(event.getPassword());
         userRepository.save(user);
+    }
+
+    @QueryHandler
+    public User handle(UserGeByIdQuery query) {
+        return userRepository.getById(query.getId());
     }
 
 }

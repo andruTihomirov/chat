@@ -18,12 +18,12 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("users")
-public class UserCreateController {
+public class UserCommandController {
 
     private final CommandBus commandBus;
 
     @Autowired
-    public UserCreateController(CommandBus commandBus) {
+    public UserCommandController(CommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
