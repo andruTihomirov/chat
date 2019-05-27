@@ -1,19 +1,15 @@
-package org.chat.model.events;
+package org.chat.model.events.user;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
+import org.chat.model.events.Event;
 
 /**
  * @author atsikhamirau on 27.05.2019
  */
-
 @Getter
 @Setter
-@Accessors(chain = true)
-public class UserUpdateEvent {
-
-    private String id;
+abstract class BaseUserEvent extends Event {
 
     private String firstName;
 

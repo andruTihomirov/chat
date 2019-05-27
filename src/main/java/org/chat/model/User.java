@@ -10,8 +10,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.chat.model.commands.UserCreateCommand;
 import org.chat.model.commands.UserUpdateCommand;
-import org.chat.model.events.UserCreateEvent;
-import org.chat.model.events.UserUpdateEvent;
+import org.chat.model.events.user.UserCreateEvent;
+import org.chat.model.events.user.UserUpdateEvent;
 
 /**
  * @author atsikhamirau on 23.05.2019
@@ -38,26 +38,26 @@ public class User {
 
     @CommandHandler
     public User(UserCreateCommand userCreateCommand) {
-        UserCreateEvent event = new UserCreateEvent()
-                .setId(userCreateCommand.getId())
-                .setFirstName(userCreateCommand.getFirstName())
-                .setLastName(userCreateCommand.getLastName())
-                .setEmail(userCreateCommand.getEmail())
-                .setPassword(userCreateCommand.getPassword());
+        UserCreateEvent userCreateEvent = new UserCreateEvent();
+        userCreateEvent.setId(userCreateCommand.getId());
+        userCreateEvent.setFirstName(userCreateCommand.getFirstName());
+        userCreateEvent.setLastName(userCreateCommand.getLastName());
+        userCreateEvent.setEmail(userCreateCommand.getEmail());
+        userCreateEvent.setPassword(userCreateCommand.getPassword());
 
-        AggregateLifecycle.apply(event);
+        AggregateLifecycle.apply(userCreateEvent);
     }
 
     @CommandHandler
     public void handle(UserUpdateCommand userUpdateCommand) {
-        UserUpdateEvent event = new UserUpdateEvent()
-                .setId(userUpdateCommand.getId())
-                .setFirstName(userUpdateCommand.getFirstName())
-                .setLastName(userUpdateCommand.getLastName())
-                .setEmail(userUpdateCommand.getEmail())
-                .setPassword(userUpdateCommand.getPassword());
+        UserUpdateEvent userUpdateEvent = new UserUpdateEvent();
+        userUpdateEvent.setId(userUpdateCommand.getId());
+        userUpdateEvent.setFirstName(userUpdateCommand.getFirstName());
+        userUpdateEvent.setLastName(userUpdateCommand.getLastName());
+        userUpdateEvent.setEmail(userUpdateCommand.getEmail());
+        userUpdateEvent.setPassword(userUpdateCommand.getPassword());
 
-        AggregateLifecycle.apply(event);
+        AggregateLifecycle.apply(userUpdateEvent);
     }
 
     @EventSourcingHandler
