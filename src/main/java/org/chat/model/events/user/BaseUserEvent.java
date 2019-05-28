@@ -9,7 +9,7 @@ import org.chat.model.events.Event;
  */
 @Getter
 @Setter
-abstract class BaseUserEvent extends Event {
+public abstract class BaseUserEvent extends Event {
 
     private String firstName;
 
