@@ -3,11 +3,13 @@ package org.chat.controllers.commands;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
 import org.chat.model.commands.user.UserCreateCommand;
+import org.chat.model.commands.user.UserDeleteCommand;
 import org.chat.model.commands.user.UserUpdateCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +46,13 @@ public class UserCommandController {
         userUpdateCommand.setId(id);
         commandBus.dispatch(new GenericCommandMessage<>(userUpdateCommand));
         return new ResponseEntity<>(userUpdateCommand, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDeleteCommand> delete(@PathVariable String id, UserDeleteCommand userDeleteCommand) {
+        userDeleteCommand.setId(id);
+        commandBus.dispatch(new GenericCommandMessage<>(userDeleteCommand));
+        return new ResponseEntity<>(userDeleteCommand, HttpStatus.ACCEPTED);
     }
 
 }

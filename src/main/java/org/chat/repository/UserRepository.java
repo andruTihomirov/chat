@@ -12,4 +12,6 @@ public interface UserRepository extends Repository<User, String> {
 
     User getById(String id);
 
+    void deleteById(String id);
+
 }

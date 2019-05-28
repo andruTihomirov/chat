@@ -10,9 +10,11 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.chat.mappers.UserMapper;
 import org.chat.model.commands.user.UserCreateCommand;
+import org.chat.model.commands.user.UserDeleteCommand;
 import org.chat.model.commands.user.UserUpdateCommand;
 import org.chat.model.events.user.BaseUserEvent;
 import org.chat.model.events.user.UserCreateEvent;
+import org.chat.model.events.user.UserDeleteEvent;
 import org.chat.model.events.user.UserUpdateEvent;
 import org.mapstruct.factory.Mappers;
 
@@ -53,6 +55,12 @@ public class User {
         AggregateLifecycle.apply(userUpdateEvent);
     }
 
+    @CommandHandler
+    public void handle(UserDeleteCommand userDeleteCommand) {
+        UserDeleteEvent userDeleteEvent = userMapper.commandToEvent(userDeleteCommand);
+        AggregateLifecycle.apply(userDeleteEvent);
+    }
+
     @EventSourcingHandler
     public void on(UserCreateEvent userCreateEvent) {
        doEvent(userCreateEvent);
@@ -61,6 +69,11 @@ public class User {
     @EventSourcingHandler
     public void on(UserUpdateEvent userUpdateEvent) {
         doEvent(userUpdateEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(UserDeleteEvent userDeleteEvent) {
+        this.id = userDeleteEvent.getId();
     }
 
     private void doEvent(BaseUserEvent event) {

@@ -1,8 +1,10 @@
 package org.chat.mappers;
 
 import org.chat.model.commands.user.UserCreateCommand;
+import org.chat.model.commands.user.UserDeleteCommand;
 import org.chat.model.commands.user.UserUpdateCommand;
 import org.chat.model.events.user.UserCreateEvent;
+import org.chat.model.events.user.UserDeleteEvent;
 import org.chat.model.events.user.UserUpdateEvent;
 import org.mapstruct.Mapper;
 
@@ -14,5 +16,6 @@ public interface UserMapper {
 
     UserCreateEvent commandToEvent(UserCreateCommand command);
     UserUpdateEvent commandToEvent(UserUpdateCommand command);
+    UserDeleteEvent commandToEvent(UserDeleteCommand command);
 
 }

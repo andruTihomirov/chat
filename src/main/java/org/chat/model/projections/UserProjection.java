@@ -4,6 +4,7 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.chat.model.User;
 import org.chat.model.events.user.UserCreateEvent;
+import org.chat.model.events.user.UserDeleteEvent;
 import org.chat.model.events.user.UserUpdateEvent;
 import org.chat.model.queries.UserGeByIdQuery;
 import org.chat.repository.UserRepository;
@@ -45,6 +46,11 @@ public class UserProjection {
                 .setEmail(userUpdateEvent.getEmail())
                 .setPassword(userUpdateEvent.getPassword());
         userRepository.save(user);
+    }
+
+    @EventHandler
+    public void on(UserDeleteEvent userDeleteEvent) {
+        userRepository.deleteById(userDeleteEvent.getId());
     }
 
     @QueryHandler

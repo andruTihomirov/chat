@@ -1,9 +1,12 @@
 package org.chat.repository;
 
+import com.mongodb.client.result.DeleteResult;
 import org.chat.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -29,5 +32,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         return this.mongoOperations.save(user);
+    }
+
+    public void deleteById(String id) {
+        this.mongoOperations.remove(Query.query(Criteria.where("_id").is(id)), User.class);
     }
 }
