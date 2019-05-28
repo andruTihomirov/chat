@@ -1,6 +1,5 @@
 package org.chat.repository;
 
-import com.mongodb.client.result.DeleteResult;
 import org.chat.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author atsikhamirau on 24.05.2019
@@ -27,6 +28,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getById(String id) {
         return mongoOperations.findById(id, User.class);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return mongoOperations.findAll(User.class);
     }
 
     @Override

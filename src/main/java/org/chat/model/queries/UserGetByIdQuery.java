@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserGeByIdQuery {
+public class UserGetByIdQuery {
 
     private String id;
 

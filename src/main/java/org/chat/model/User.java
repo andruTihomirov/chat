@@ -1,5 +1,6 @@
 package org.chat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -38,6 +39,7 @@ public class User {
 
     private String password;
 
+    @JsonIgnore
     private UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     public User() {

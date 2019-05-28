@@ -6,11 +6,14 @@ import org.chat.model.User;
 import org.chat.model.events.user.UserCreateEvent;
 import org.chat.model.events.user.UserDeleteEvent;
 import org.chat.model.events.user.UserUpdateEvent;
-import org.chat.model.queries.UserGeByIdQuery;
+import org.chat.model.queries.UserGetAllQuery;
+import org.chat.model.queries.UserGetByIdQuery;
 import org.chat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author atsikhamirau on 24.05.2019
@@ -54,8 +57,13 @@ public class UserProjection {
     }
 
     @QueryHandler
-    public User handle(UserGeByIdQuery query) {
+    public User handle(UserGetByIdQuery query) {
         return userRepository.getById(query.getId());
+    }
+
+    @QueryHandler
+    public List<User> handle(UserGetAllQuery userGetAllQuery) {
+        return userRepository.getAll();
     }
 
 }
