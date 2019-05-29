@@ -23,7 +23,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongoRepositories(
-        mongoTemplateRef = "projectionMongoTemplate")
+        mongoTemplateRef = "mongoTemplate")
 public class AxonProjectionMongoDbConfiguration {
 
     @Bean(name = "projectionMongoProperties")
@@ -47,7 +47,7 @@ public class AxonProjectionMongoDbConfiguration {
         return new MappingMongoConverter(dbRefResolver, mongoMappingContext);
     }
 
-    @Bean(name = "projectionMongoTemplate")
+    @Bean(name = "mongoTemplate")
     public MongoTemplate mongoTemplate(
             @Qualifier("projectionMongoDbFactory") MongoDbFactory mongoFactory,
             @Qualifier("projectionMappingMongoConverter") MappingMongoConverter mappingMongoConverter) {

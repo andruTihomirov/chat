@@ -10,8 +10,8 @@ import org.chat.model.queries.UserGetAllQuery;
 import org.chat.model.queries.UserGetByIdQuery;
 import org.chat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -24,8 +24,7 @@ public class UserProjection {
     private UserRepository userRepository;
 
     @Autowired
-    public UserProjection(UserRepository userRepository) {
-        Assert.notNull(userRepository, "UserRepository was not autowired.");
+    public UserProjection(@Qualifier("userProjectionRepository") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -58,12 +57,12 @@ public class UserProjection {
 
     @QueryHandler
     public User handle(UserGetByIdQuery query) {
-        return userRepository.getById(query.getId());
+        return userRepository.findById(query.getId()).orElse(null);
     }
 
     @QueryHandler
     public List<User> handle(UserGetAllQuery userGetAllQuery) {
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
 
 }
