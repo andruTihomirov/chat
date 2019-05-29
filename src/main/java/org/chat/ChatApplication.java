@@ -2,6 +2,7 @@ package org.chat;
 
 import org.axonframework.boot.autoconfig.AxonAutoConfiguration;
 import org.chat.configs.AxonProjectionMongoDbConfiguration;
+import org.chat.repository.ConversationRepository;
 import org.chat.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +19,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         MongoDataAutoConfiguration.class,
         AxonAutoConfiguration.class
 })
-@EnableMongoRepositories(basePackageClasses = UserRepository.class)
+@EnableMongoRepositories(basePackageClasses = {
+        UserRepository.class,
+        ConversationRepository.class
+})
 public class ChatApplication {
 
     public static void main(String[] args) {
